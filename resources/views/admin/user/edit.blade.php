@@ -20,7 +20,7 @@
                                     <div class="add-product-box">
                                         <div class="add-product-header">
                                             <h2>Edit Handyman</h2>
-                                            <a href="{{route('admin-user-index')}}" class="btn add-back-btn"><i class="fa fa-arrow-left"></i> Back</a>  
+                                            <a href="{{route('admin-user-index')}}" class="btn add-back-btn"><i class="fa fa-arrow-left"></i> Back</a>
                                         </div>
                                         <hr>
                                         <form class="form-horizontal" action="{{route('admin-user-update',$user->id)}}" method="POST" enctype="multipart/form-data">
@@ -33,21 +33,21 @@
                                               <input class="form-control" name="name" id="edit_full_name" placeholder="Enter Full Name" required="" type="text" value="{{$user->name}}">
                                             </div>
                                           </div>
-                                          <div class="form-group" style="display: none;">
+                                          {{--<div class="form-group" style="display: none;">
                                             <label class="control-label col-sm-4" for="edit_blood_group">Category*</label>
-                                            <div class="col-sm-6"> 
+                                            <div class="col-sm-6">
                                               <select class="form-control" name="category_id" id="edit_blood_group" required="">
                                                   <option value="">Select Category</option>
-                                     @foreach($cats as $cat)
-                                     <option value="{{$cat->id}}" {{$cat->cat_name == $user->category->cat_name?"selected":""}}>{{$cat->cat_name}}</option>
-                                     @endforeach
+                                                  @foreach($cats as $cat)
+                                                      <option value="{{$cat->id}}" {{$cat->cat_name == $user->category->cat_name?"selected":""}}>{{$cat->cat_name}}</option>
+                                                  @endforeach
                                               </select>
                                             </div>
-                                          </div>
+                                          </div>--}}
                                           <div class="form-group">
                                             <label class="control-label col-sm-4" for="edit_current_photo">Current Photo*</label>
                                             <div class="col-sm-6">
-     
+
                                               <img width="130px" height="90px" id="adminimg" src="{{ $user->photo ? asset('assets/images/'.$user->photo):'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSCM_FnlKpZr_N7Pej8GA40qv63zVgNc0MFfejo35drsuxLUcYG'}}" alt="" id="adminimg">
                                             </div>
                                           </div>
@@ -61,7 +61,7 @@
                                           </div>
                                           <div class="form-group">
                                             <label class="control-label col-sm-4" for="edit_profile_description">Profile Description*</label>
-                                            <div class="col-sm-6"> 
+                                            <div class="col-sm-6">
                                               <textarea class="form-control" name="description" id="edit_profile_description" rows="5" style="resize: vertical;" placeholder="Enter Profile Description">{{$user->description}}</textarea>
                                             </div>
                                           </div>
@@ -70,7 +70,7 @@
                                             <label class="control-label col-sm-4" for="phone">Specialities * <span>Separated By Comma (,)</span></label>
                                             <div class="col-sm-6">
                                               <ul id="myTags">
-                                              @if(isset($specials))
+                                              @if($specials)
                                               @foreach($specials as $parea)
                                               <li>{{$parea}}</li>
                                               @endforeach
@@ -217,7 +217,7 @@
                                             <label class="control-label col-sm-4" for="check1"></label>
                                             <div class="col-sm-6">
 <div class="btn btn-default checkbox1">
-                                    <input type="checkbox" id="check1" name="featured" value="1"  {{$user->featured == 1 ? "checked":"" }}> 
+                                    <input type="checkbox" id="check1" name="featured" value="1"  {{$user->featured == 1 ? "checked":"" }}>
                                     <label for="check1">Add to Featured Handyman</label>
                                   </div>
                                             </div>                                              </div>
@@ -230,7 +230,7 @@
                                 </div>
                         </div>
                     </div>
-                    <!-- Ending of Dashboard area --> 
+                    <!-- Ending of Dashboard area -->
                 </div>
             </div>
         </div>
@@ -240,7 +240,7 @@
 
 @section('scripts')
 
-<script type="text/javascript" src="{{asset('assets/admin/js/nicEdit.js')}}"></script> 
+<script type="text/javascript" src="{{asset('assets/admin/js/nicEdit.js')}}"></script>
 <script type="text/javascript">
 //<![CDATA[
         bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
@@ -248,7 +248,7 @@
 </script>
 
 <script type="text/javascript">
-  
+
   function uploadclick(){
     $("#uploadFile").click();
     $("#uploadFile").change(function(event) {
@@ -317,7 +317,7 @@
 </script>
 
 <script src="{{asset('assets/admin/js/jquery152.min.js')}}"></script>
-<script src="{{asset('assets/admin/js/jqueryui.min.js')}}"></script>    
+<script src="{{asset('assets/admin/js/jqueryui.min.js')}}"></script>
 <script src="{{asset('assets/admin/js/tag-it.js')}}" type="text/javascript" charset="utf-8"></script>
 
 
@@ -326,7 +326,7 @@
     $(document).ready(function() {
         $("#myTags").tagit({
           fieldName: "special[]",
-          allowSpaces: true 
+          allowSpaces: true
         });
     });
 </script>
