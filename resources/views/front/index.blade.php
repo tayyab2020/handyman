@@ -1040,8 +1040,7 @@
                     {
                         if($(this).hasClass('select2-hidden-accessible'))
                         {
-                            $('.select2').css('border','1px solid red');
-                            $('.select2-selection').css('outline','none');
+                            $(this).next().css('border','1px solid red');
                         }
                         else
                         {
@@ -1624,11 +1623,11 @@
         }
 
         .select2-container--default .select2-selection--single{
-
             height: 100%;
             padding: 7px;
             border: none;
             border-radius: 0;
+            outline: none;
         }
 
         .select2-container--default .select2-selection--single .select2-selection__arrow{

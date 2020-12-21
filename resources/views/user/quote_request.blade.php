@@ -90,7 +90,7 @@
                                         <div class="form-group">
                                             <label class="control-label col-sm-4" for="service_description">Description*</label>
                                             <div class="col-sm-6">
-                                                <p class="form-control" style="padding: 10px;">{{$request->quote_description}}</p>
+                                                <p class="form-control" style="padding: 10px;height: auto;">{{$request->quote_description}}</p>
                                             </div>
                                         </div>
 
@@ -118,6 +118,12 @@
 
 
     <style type="text/css">
+
+        p
+        {
+            height: auto !important;
+            min-height: 40px;
+        }
 
         .swal2-show
         {

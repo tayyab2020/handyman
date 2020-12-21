@@ -24,7 +24,7 @@
                                 <form action="{{route('front.contact.submit')}}" id="contform" method="POST">
                                     {{csrf_field()}}
                                 <!-- Success message -->
-                                        @include('includes.form-success') 
+                                        @include('includes.form-success')
                                 <input type="hidden" name="to" value="{{$ps->contact_email}}">
                                     <div class="row">
                                         <div class="col-md-6">
@@ -62,14 +62,14 @@
                     </div>
                     <div class="col-md-4 col-md-offset-1 col-sm-5">
                         <div class="contact-info padding-top-100">
-                             @if($gs->street != null)   
+                             @if($gs->street != null)
                           <p class="contact-info">
                                 <i class="fa fa-map-marker" aria-hidden="true"></i>
-                                {{$gs->street}}
+                              {!! $gs->street !!}
                             </p>
                             @endif
 
-                            @if($gs->phone != null || $gs->fax != null ) 
+                            @if($gs->phone != null || $gs->fax != null )
                             <p class="contact-info">
 
                                  <i class="fa fa-phone" aria-hidden="true"></i>
@@ -88,9 +88,9 @@
                             @endif
 
                             @if($gs->site != null || $gs->email != null )
-                            <p class="contact-info">                               
+                            <p class="contact-info">
                                 <i class="fa fa-globe" aria-hidden="true"></i>
-                                @if($gs->site != null && $gs->email != null) 
+                                @if($gs->site != null && $gs->email != null)
                                 <a href="{{$gs->site}}">{{$gs->site}}</a>
                                 <br>
                                 <a href="mailto:{{$gs->email}}">{{$gs->email}}</a>
@@ -98,7 +98,7 @@
                                 <a href="{{$gs->site}}">{{$gs->site}}</a>
                                 @else
                                 <a href="mailto:{{$gs->email}}">{{$gs->email}}</a>
-                                @endif                                                                
+                                @endif
                             </p>
                             @endif
                         </div>

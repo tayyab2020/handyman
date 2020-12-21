@@ -714,8 +714,6 @@ $('.remove<?php echo $x; ?>').click(function(){
                                                         <input type="hidden" name="rate_id" id="rate_id" class="form-control">
                                                         <input type="hidden" name="service_rate" id="service_rate" class="form-control">
                                                         <input type="hidden" name="service_questions" id="service_questions" class="form-control">
-                                                        <input type="hidden" name="vat_percentage" id="vat_percentage" class="form-control">
-                                                        <input type="hidden" name="sell_rate" id="sell_rate" class="form-control">
                                                         <input type="hidden" name="cart_count" id="cart_count" value="{{$cart_count}}" class="form-control">
 
                                                     </div>
@@ -1143,8 +1141,6 @@ button[type="submit"]:hover
             var s_id  = $(this).attr('data-service');
             var rate  = $(this).attr('data-rate');
             var questions  = $(this).attr('data-questions');
-            var vat_percentage  = $(this).attr('data-vat');
-            var sell_rate  = $(this).attr('data-sellRate');
             var main =  $(this).attr('data-main');
             var stype = $(this).attr('data-stype');
             var description = $(this).attr('data-description');
@@ -1154,8 +1150,6 @@ button[type="submit"]:hover
             $('#rate_id').val(s_id);
             $('#service_rate').val(rate);
             $('#service_questions').val(questions);
-            $('#vat_percentage').val(vat_percentage);
-            $('#sell_rate').val(sell_rate);
             $('#main_service').val(main);
             $('#main_price').val("€ " + rate + " - " + stype);
             $('#main_description').attr("data-info",description);
@@ -1224,8 +1218,6 @@ button[type="submit"]:hover
             var service_questions = $('#service_questions').val();
             var purpose = $('#purpose').val();
             var purpose_type = $('#purpose_type').val();
-            var vat_percentage = $('#vat_percentage').val();
-            var sell_rate = $('#sell_rate').val();
             var rate_id = $('#rate_id').val();
             var service_rate = $('#service_rate').val();
             var handyman_id = $('#handyman_id').val();
@@ -1242,8 +1234,6 @@ button[type="submit"]:hover
             fd.append("service_questions",service_questions);
             fd.append("purpose",purpose);
             fd.append("purpose_type",purpose_type);
-            fd.append("vat_percentage",vat_percentage);
-            fd.append("sell_rate",sell_rate);
             fd.append("rate_id",rate_id);
             fd.append("service_rate",service_rate);
             fd.append("description",description);

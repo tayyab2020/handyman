@@ -2231,55 +2231,20 @@ $api_key = Generalsetting::findOrFail(1);
             }
         }
 
-        if($request->service_questions)
-        {
-            $purpose = $request->purpose;
 
-            if($purpose == 1)
-            {
-                if($request->vat_percentage == 21)
-                {
-                    $vat_percentage = $request->vat_percentage;
-                    $sell_rate = $request->sell_rate;
-                }
-                else
-                {
-                    $service_rate = $request->service_rate;
-                    $vat_percentage = 21;
-                    $sell_rate = $service_rate * ($vat_percentage/100);
-                    $sell_rate = $sell_rate + $service_rate;
-                }
-            }
-            else
-            {
-                if($request->purpose_type == 1)
-                {
-                    if($request->vat_percentage == 21)
-                    {
-                        $vat_percentage = $request->vat_percentage;
-                        $sell_rate = $request->sell_rate;
-                    }
-                    else
-                    {
-                        $service_rate = $request->service_rate;
-                        $vat_percentage = 21;
-                        $sell_rate = $service_rate * ($vat_percentage/100);
-                        $sell_rate = $sell_rate + $service_rate;
-                    }
-                }
-                else
-                {
-                    $service_rate = $request->service_rate;
-                    $vat_percentage = 9;
-                    $sell_rate = $service_rate * ($vat_percentage/100);
-                    $sell_rate = $sell_rate + $service_rate;
-                }
-            }
-        }
-        else
+        $purpose = $request->purpose;
+        $purpose_type = $request->purpose_type;
+        $questions = $request->service_questions;
+
+        if($questions == 0)
         {
-            $vat_percentage = $request->vat_percentage;
-            $sell_rate = $request->sell_rate;
+            $purpose = 0;
+            $purpose_type = 0;
+        }
+
+        if($purpose == 1)
+        {
+            $purpose_type = 0;
         }
 
         $check = carts::where('user_ip','=',$ip_address)->first();
@@ -2293,7 +2258,7 @@ $api_key = Generalsetting::findOrFail(1);
                 if($to_update)
                 {
                     $qty = $to_update->rate + $request->rate;
-                    carts::where('user_ip','=',$ip_address)->where('service_id','=',$request->service)->where('handyman_id','=',$request->handyman_id)->update(['rate'=>$qty, 'vat_percentage' => $vat_percentage, 'sell_rate' => $sell_rate]);
+                    carts::where('user_ip','=',$ip_address)->where('service_id','=',$request->service)->where('handyman_id','=',$request->handyman_id)->update(['rate'=>$qty, 'questions' => $questions, 'purpose' => $purpose, 'purpose_type' => $purpose_type]);
                     $sub_service = $request->sub_service;
 
                     if($sub_service)
@@ -2310,7 +2275,7 @@ $api_key = Generalsetting::findOrFail(1);
                             if($to_update_sub)
                             {
                                 $qty_sub = $to_update_sub->rate + $request->sub_rate[$i];
-                                carts::where('user_ip','=',$ip_address)->where('service_id','=',$sub_service_id)->where('main_id','=',$request->service)->where('handyman_id','=',$request->handyman_id)->update(['rate'=>$qty_sub]);
+                                carts::where('user_ip','=',$ip_address)->where('service_id','=',$sub_service_id)->where('main_id','=',$request->service)->where('handyman_id','=',$request->handyman_id)->update(['rate'=>$qty_sub, 'questions' => $questions, 'purpose' => $purpose, 'purpose_type' => $purpose_type]);
                             }
                             else
                             {
@@ -2323,6 +2288,9 @@ $api_key = Generalsetting::findOrFail(1);
                                 $cart->rate = $request->sub_rate[$i];
                                 $cart->service_rate = $request->sub_service_rate[$i];
                                 $cart->booking_date = $date;
+                                $cart->questions = $questions;
+                                $cart->purpose = $purpose;
+                                $cart->purpose_type = $purpose_type;
                                 $cart->save();
                             }
                         }
@@ -2367,8 +2335,9 @@ $api_key = Generalsetting::findOrFail(1);
                         $post->rate = $request->rate;
                         $post->service_rate = $request->service_rate;
                         $post->booking_date = $date;
-                        $post->vat_percentage = $vat_percentage;
-                        $post->sell_rate = $sell_rate;
+                        $post->questions = $questions;
+                        $post->purpose = $purpose;
+                        $post->purpose_type = $purpose_type;
                         $post->save();
 
                         $sub_service = $request->sub_service;
@@ -2390,6 +2359,9 @@ $api_key = Generalsetting::findOrFail(1);
                                 $cart->rate = $request->sub_rate[$i];
                                 $cart->service_rate = $request->sub_service_rate[$i];
                                 $cart->booking_date = $date;
+                                $cart->questions = $questions;
+                                $cart->purpose = $purpose;
+                                $cart->purpose_type = $purpose_type;
                                 $cart->save();
                                 $i++;
 
@@ -2448,8 +2420,9 @@ $api_key = Generalsetting::findOrFail(1);
                 $post->rate = $request->rate;
                 $post->service_rate = $request->service_rate;
                 $post->booking_date = $date;
-                $post->vat_percentage = $vat_percentage;
-                $post->sell_rate = $sell_rate;
+                $post->questions = $questions;
+                $post->purpose = $purpose;
+                $post->purpose_type = $purpose_type;
                 $post->save();
 
                 $sub_service = $request->sub_service;
@@ -2472,6 +2445,9 @@ $api_key = Generalsetting::findOrFail(1);
                         $cart->rate = $request->sub_rate[$i];
                         $cart->service_rate = $request->sub_service_rate[$i];
                         $cart->booking_date = $date;
+                        $cart->questions = $questions;
+                        $cart->purpose = $purpose;
+                        $cart->purpose_type = $purpose_type;
                         $cart->save();
                         $i++;
                     }

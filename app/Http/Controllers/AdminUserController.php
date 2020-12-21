@@ -658,15 +658,27 @@ class AdminUserController extends Controller
     {
         $user = User::findOrFail($id);
         $cats = Category::all();
+        
         if($user->title!=null && $user->details!=null)
         {
             $title = explode(',', $user->title);
             $details = explode(',', $user->details);
         }
+        else
+        {
+            $title = '';
+            $details = '';
+        }
+
         if($user->special != null)
         {
             $specials = explode(',', $user->special);
         }
+        else
+        {
+            $specials = '';
+        }
+
         return view('admin.user.edit',compact('user','cats','title','details','specials'));
     }
 
